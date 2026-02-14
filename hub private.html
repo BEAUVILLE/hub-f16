@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>🔒 DIGIY HUB F16 PRIVÉ</title>
+  <link rel="stylesheet" href="hub-badges.css">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      background: #020617;
+      color: #e2e8f0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      overflow-x: hidden;
+    }
+
+    .private-banner {
+      background: linear-gradient(135deg, rgba(255, 68, 68, 0.2), rgba(68, 170, 255, 0.2));
+      border-bottom: 2px solid rgba(255, 68, 68, 0.4);
+      padding: 12px 20px;
+      text-align: center;
+      font-weight: 600;
+      color: #ff8888;
+    }
+
+    .private-banner span {
+      margin-right: 10px;
+    }
+
+    #modulesGrid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+      gap: 20px;
+      padding: 20px;
+      max-width: 1400px;
+      margin: 0 auto;
+    }
+
+    #modulesBrand {
+      text-align: center;
+      padding: 20px;
+      color: #44ccff;
+      font-size: 2em;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+    }
+
+    .lock-icon {
+      font-size: 0.8em;
+      color: #ff8888;
+    }
+
+    /* HIDDEN ELEMENTS (pour hub.js) */
+    #modal, #hubOverlay, #modalTitle, #modalText, #modalOk, #modalCancel,
+    #hubBackBtn, #hubCloseBtn, #hubFrame, #phoneBrand, #filterBrand,
+    #btnEditPhone, #btnClearPhone, #btnGetHub, #btnDeals, #btnReset,
+    #searchInput, #statTotal, #statPublic, #statPro, #phoneText,
+    #homeBrand, .tab, #tarif-bubble-btn, #espace-pro-btn, #digiy-help-btn,
+    #manifesto-bubble-btn, #digiy-ndimbal, #digiyCloseBtn, #qrModal, #qrClose {
+      display: none !important;
+    }
+
+    /* CUSTOM STYLES POUR VERSION PRIVÉE */
+    .private-header {
+      background: rgba(15, 23, 42, 0.9);
+      border-bottom: 2px solid rgba(68, 170, 255, 0.2);
+      padding: 20px;
+      position: sticky;
+      top: 0;
+      z-index: 50;
+    }
+
+    .private-header-content {
+      max-width: 1400px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 20px;
+    }
+
+    .private-logo {
+      font-size: 1.6em;
+      font-weight: 700;
+      color: #44ccff;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .private-actions {
+      display: flex;
+      gap: 12px;
+      align-items: center;
+    }
+
+    .btn-dashboard {
+      background: linear-gradient(135deg, #ffaa44, #ff8844);
+      color: #000;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      font-weight: 600;
+      font-size: 1em;
+      transition: all 0.3s ease;
+    }
+
+    .btn-dashboard:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 20px rgba(255, 136, 68, 0.4);
+    }
+
+    .info-text {
+      color: #94a3b8;
+      font-size: 0.9em;
+    }
+
+    /* FLOATING BUTTONS */
+    .floating-buttons {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      z-index: 1000;
+    }
+
+    .float-btn {
+      width: 56px;
+      height: 56px;
+      border-radius: 50%;
+      border: none;
+      background: linear-gradient(135deg, #ffaa44, #ff8844);
+      color: #000;
+      font-size: 1.5em;
+      cursor: pointer;
+      box-shadow: 0 4px 15px rgba(255, 136, 68, 0.4);
+      transition: all 0.3s ease;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+    }
+
+    .float-btn:hover {
+      transform: scale(1.15);
+      box-shadow: 0 6px 25px rgba(255, 136, 68, 0.6);
+    }
+
+    .private-footer {
+      background: rgba(15, 23, 42, 0.8);
+      border-top: 1px solid rgba(68, 170, 255, 0.2);
+      padding: 20px;
+      text-align: center;
+      font-size: 0.9em;
+      opacity: 0.7;
+      margin-top: 40px;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- 🔒 PRIVATE BANNER -->
+  <div class="private-banner">
+    <span>🔒</span>
+    <strong>VERSION PRIVÉE SÉCURISÉE</strong>
+    <span>🔒</span>
+  </div>
+
+  <!-- HEADER -->
+  <div class="private-header">
+    <div class="private-header-content">
+      <div class="private-logo">
+        <span class="lock-icon">🔒</span>
+        <span>∞ DIGIY HUB F16 PRIVÉ</span>
+      </div>
+      <div class="private-actions">
+        <span class="info-text">Analytics confidentiels</span>
+        <button id="dashboard-bubble-btn" class="btn-dashboard" title="Ouvrir Dashboard Analytics">
+          📊 Dashboard
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- MAIN CONTENT -->
+  <div id="modulesBrand">
+    <span>∞</span>
+    <span>Écosystème DIGIYLYFE</span>
+  </div>
+
+  <div id="modulesGrid"></div>
+
+  <!-- HUB OVERLAY (hidden, mais utilisé par hub.js) -->
+  <div id="hubOverlay" hidden class="hidden" aria-hidden="true">
+    <div style="display:flex;align-items:center;justify-content:space-between;padding:10px;background:rgba(15,23,42,0.9);border-bottom:1px solid rgba(68,170,255,0.2)">
+      <div></div>
+      <button id="hubBackBtn">←</button>
+      <button id="hubCloseBtn">✕</button>
+    </div>
+    <iframe id="hubFrame" style="width:100%;height:calc(100% - 50px);border:none"></iframe>
+  </div>
+
+  <!-- MODAL (hidden) -->
+  <div id="modal" class="hidden" aria-hidden="true" style="display:none!important">
+    <div style="background:#0f172a;border-radius:12px;padding:20px;max-width:500px">
+      <h2 id="modalTitle"></h2>
+      <div id="modalText" style="margin:15px 0"></div>
+      <div style="display:flex;gap:10px">
+        <button id="modalOk" class="btn btn-primary"></button>
+        <button id="modalCancel" class="btn"></button>
+      </div>
+    </div>
+  </div>
+
+  <!-- HIDDEN UI ELEMENTS (for hub.js to work) -->
+  <div style="display:none">
+    <div id="phoneText"></div>
+    <div id="filterBrand"></div>
+    <button id="btnEditPhone"></button>
+    <button id="btnClearPhone"></button>
+    <button id="btnGetHub"></button>
+    <button id="btnDeals"></button>
+    <button id="btnReset"></button>
+    <input id="searchInput" />
+    <span id="statTotal"></span>
+    <span id="statPublic"></span>
+    <span id="statPro"></span>
+    <div id="homeBrand"></div>
+    <button class="tab" data-filter="all"></button>
+    <button class="tab" data-filter="public"></button>
+    <button class="tab" data-filter="pro"></button>
+    <button id="tarif-bubble-btn"></button>
+    <button id="espace-pro-btn"></button>
+    <button id="digiy-help-btn"></button>
+    <button id="manifesto-bubble-btn"></button>
+    <div id="digiy-ndimbal"></div>
+    <button id="digiyCloseBtn"></button>
+    <div id="qrModal"></div>
+    <button id="qrClose"></button>
+  </div>
+
+  <!-- FOOTER -->
+  <div class="private-footer">
+    <p>🔒 DIGIY HUB F16 PRIVÉ - Accès sécurisé par token</p>
+    <p style="margin-top:5px">L'Afrique enracinée, connectée au monde 🦅</p>
+  </div>
+
+  <!-- FLOATING BUTTON FOR DASHBOARD -->
+  <div class="floating-buttons">
+    <button id="dashboard-bubble-btn-float" class="float-btn" title="Dashboard Analytics">📊</button>
+  </div>
+
+  <!-- SCRIPT - VERSION PROTÉGÉE -->
+  <script src="hub-private.js"></script>
+
+  <!-- FALLBACK: Si le fichier hub-private.js n'existe pas, utiliser hub.js -->
+  <script>
+    if (typeof boot === 'undefined') {
+      // Charger hub.js comme fallback (mais il y aura erreur token si pas de paramètre)
+      const script = document.createElement('script');
+      script.src = 'hub.js';
+      document.body.appendChild(script);
+    }
+  </script>
+
+</body>
+</html>
